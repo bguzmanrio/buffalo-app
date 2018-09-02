@@ -2,7 +2,7 @@ import React from 'react';
 import { StatusBar, Text, View, Button } from 'react-native';
 
 class Start extends React.Component {
-  handleNavigation = () => {
+  handleConfigNavigation = () => {
     this.props.navigation.push('Configuration');
   };
 
@@ -15,7 +15,7 @@ class Start extends React.Component {
       <View>
         <StatusBar hidden />
         <Text>This is the main page</Text>
-        <Button title="Navigate" onPress={this.handleNavigation} />
+        <Button title="Configuration" onPress={this.handleConfigNavigation} />
         <Button title="Game" onPress={this.handleGameNavigation} />
       </View>
     );

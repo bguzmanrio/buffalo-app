@@ -12,7 +12,7 @@ class SelectConfig extends React.Component {
 
   componentDidMount = async () => {
     try {
-      const configList = await getConfigList();
+      const configList = await getConfigList();      
       this.setState({ configList, config: configList[0] });
     } catch (error) {
       throw new Error(error);

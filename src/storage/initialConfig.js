@@ -57,7 +57,7 @@ export const config = {
         long: 'this is the long rule. It should display more information'
       },
       hotRound: {
-        short: '',
+        short: 'Categorías',
         long: 'this is the long rule. It should display more information'
       }
     },
@@ -67,7 +67,7 @@ export const config = {
         long: 'this is the long rule. It should display more information'
       },
       hotRound: {
-        short: '',
+        short: 'Yo nunca',
         long: 'this is the long rule. It should display more information'
       }
     },
