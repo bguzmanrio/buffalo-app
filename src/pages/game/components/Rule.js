@@ -30,7 +30,7 @@ class Rule extends React.Component {
     this.panResponder = PanResponder.create({
       // Ask to be the responder:
       onStartShouldSetPanResponder: (evt, gestureState) => true,
-      onStartShouldSetPanResponderCapture: (evt, gestureState) => true,
+      onStartShouldSetPanResponderCapture: (evt, gestureState) => false,
       onMoveShouldSetPanResponder: (evt, gestureState) => true,
       onMoveShouldSetPanResponderCapture: (evt, gestureState) => true,
 
@@ -40,20 +40,21 @@ class Rule extends React.Component {
 
         // gestureState.d{x,y} will be set to zero now
       },
+      onPanResponderStart: () => {
+        this.initialHeight = Math.max(this.state.height.__getValue(), initialHeight);
+      },
       onPanResponderMove: (evt, gestureState) => {
         // The most recent move distance is gestureState.move{X,Y}
 
         // The accumulated gesture distance since becoming responder is
-        // gestureState.d{x,y}        
-        this.setCurrentValueAnimated(this.windowHeight + initialHeight - gestureState.moveY);
+        // gestureState.d{x,y}
+        this.setCurrentValueAnimated(this.initialHeight - gestureState.dy);
         // this.state.position.setValue(gestureState.moveX);
         // this.
       },
       onPanResponderTerminationRequest: (evt, gestureState) => true,
       onPanResponderRelease: (evt, gestureState) => {
-        if (this.state.height.__getValue() < this.windowHeight / 2) {
-          this.setCurrentValueAnimated(initialHeight);
-        }
+        this.setCurrentValueAnimated(initialHeight);
         // if (this.state.height.__getValue() >= 200) {
         //   this.props.onSwipeCard();
         // } else {
@@ -84,19 +85,14 @@ class Rule extends React.Component {
     Animated.spring(this.state.height, animationConfig).start();
   };
 
-  displayLong = () => {
-    this.setState({
-      display: !this.state.display
-    });
-  };
+  handleDisplay = () => {
+    this.setCurrentValueAnimated(this.windowHeight / 2);
+  }
 
   render() {
     const { isHotRound, rule } = this.props;
     const hotRoundStyles = isHotRound ? styles.ruleHotRound : null;
-    const ruleToDisplay = isHotRound ? rule.hotRound : rule.base;
-
-    console.log(styles.ruleContainer);
-    
+    const ruleToDisplay = isHotRound ? rule.hotRound : rule.base;    
 
     return (
       <Animated.View
@@ -109,7 +105,7 @@ class Rule extends React.Component {
           }
         ]}
       >
-        <Text style={styles.rule}> 
+        <Text style={styles.rule}>
           {ruleToDisplay.short}
         </Text>
         <Text style={styles.longRule}>
@@ -138,6 +134,14 @@ const styles = StyleSheet.create({
   rule: {
     textAlign: 'center',
     fontSize: 20,
+    lineHeight: 24,
+    fontWeight: 'bold',
+    paddingHorizontal: 8,
+    paddingVertical: 16
+  },
+  ruleToggle: {
+    textAlign: 'center',
+    fontSize: 16,
     lineHeight: 24,
     fontWeight: 'bold',
     paddingHorizontal: 8,

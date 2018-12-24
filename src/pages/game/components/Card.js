@@ -1,12 +1,9 @@
 import React, { Component } from 'react';
 import {
   View,
-  Text,
   Image,
-  TouchableWithoutFeedback,
   Animated,
   PanResponder,
-  Easing,
   Dimensions,
   StyleSheet
 } from 'react-native';
@@ -23,13 +20,41 @@ const DEFAULT_ANIMATION_CONFIGS = {
 };
 
 const getWindowHeight = () => Dimensions.get('window').height;
+const getWindowWidth = () => Dimensions.get('window').width;
+
+const getInitialState = () => {
+  const rotationValue = new Animated.Value(0);
+  const windowWidth = getWindowWidth();
+  const halfWindow = windowWidth / 2;
+
+  return {
+    rotation: rotationValue,
+    rotationFront: rotationValue.interpolate({
+      inputRange: [0, windowWidth],
+      outputRange: ['0deg', '180deg']
+    }),
+    rotationBack: rotationValue.interpolate({
+      inputRange: [0, windowWidth],
+      outputRange: ['180deg', '360deg']
+    }),
+    frontOpacity: rotationValue.interpolate({
+      inputRange: [-halfWindow, 1 - halfWindow, halfWindow - 1, halfWindow],
+      outputRange: [0, 1, 1, 0]
+    }),
+    backOpacity: rotationValue.interpolate({
+      inputRange: [-halfWindow, 1 - halfWindow, halfWindow - 1, halfWindow],
+      outputRange: [1, 0, 0, 1]
+    })
+  };
+}
 
 class Card extends Component {
   windowWidth = Dimensions.get('window').width;
 
   state = {
     revealed: false,
-    position: new Animated.Value(0)
+    position: new Animated.Value(0),
+    ...getInitialState()
   };
 
   componentWillMount = () => {
@@ -46,22 +71,45 @@ class Card extends Component {
 
         // gestureState.d{x,y} will be set to zero now
       },
+      onPanResponderStart: () => {
+        this.initialRotation = this.state.rotation.__getValue();
+      },
       onPanResponderMove: (evt, gestureState) => {
         // The most recent move distance is gestureState.move{X,Y}
 
         // The accumulated gesture distance since becoming responder is
         // gestureState.d{x,y}
-        this.setCurrentValueAnimated(gestureState.moveX);
+        if(this.state.revealed) {
+          if(gestureState.dx > 0) {
+            this.setCurrentValueAnimated(gestureState.dx);
+          }
+        } else {
+          this.setCurrentRotation(this.initialRotation + gestureState.dx);
+        }
         // this.state.position.setValue(gestureState.moveX);
         // this.
       },
       onPanResponderTerminationRequest: (evt, gestureState) => true,
-      onPanResponderRelease: (evt, gestureState) => {
-        if (this.state.position.__getValue() >= this.windowWidth*0.4) {
-          this.props.onSwipeCard();
+      onPanResponderRelease: () => {
+        if (this.state.revealed) {
+          if (this.state.position.__getValue() >= this.windowWidth*0.4) {
+            this.swipeCard();
+          } else {
+            this.setCurrentValueAnimated(0);
+          }
         } else {
-          this.setCurrentValueAnimated(0);
+          const rotation = parseInt(this.state.rotationFront.__getValue(), 10);
+          if(Math.abs(rotation) >= 90) {
+            this.setState({
+              revealed: true
+            }, () => {
+              this.setCurrentRotation(Math.sign(rotation) * this.windowWidth);
+            });
+          } else {
+            this.setCurrentRotation(0);
+          }
         }
+
         // The user has released all touches while this view is the
         // responder. This typically means a gesture has succeeded
       },
@@ -80,9 +128,26 @@ class Card extends Component {
 
   componentWillReceiveProps = nextProps => {
     if (nextProps.image !== this.props.image) {
-      this.state.position.setValue(0);
-      this.setState({ revealed: false });
+      
     }
+  };
+
+  swipeCard = () => {
+    this.setState({ revealed: false }, () => {
+      this.setCurrentRotation(0);
+      this.setCurrentValueAnimated(0);
+      this.props.onSwipeCard();
+    });
+  }
+
+  setCurrentRotation = toValue => {
+    const animationConfig = Object.assign(
+      {},
+      DEFAULT_ANIMATION_CONFIGS.spring,
+      { toValue }
+    );
+
+    Animated.spring(this.state.rotation, animationConfig).start();
   }
 
   setCurrentValueAnimated = toValue => {
@@ -95,19 +160,8 @@ class Card extends Component {
     Animated.spring(this.state.position, animationConfig).start();
   };
 
-  reveal = () => {
-    this.setState({
-      revealed: true
-    });
-  };
-
   render() {
-    // const position = this.state.position.interpolate({
-    //   inputRange: [this.windowWidth / 2, this.windowWidth],
-    //   outputRange: [0, this.windowWidth / 2]
-    // });
-
-    return this.state.revealed ? (
+    return (
       <View
         style={[styles.container, {
           height: getWindowHeight()
@@ -115,26 +169,38 @@ class Card extends Component {
       >
         <View style={styles.imageContainer} {...this.panResponder.panHandlers}>
           <Animated.Image
-            source={this.props.image}
-            resizeMode="contain"
+            source={backdropImage}
             style={[
-              styles.image,
               {
+                backfaceVisibility: 'hidden',
                 transform: [
-                  { translateX: this.state.position },
-                  { translateY: 0 }
-                ]
+                  { perspective: 1000 },
+                  { rotateY: this.state.rotationFront }
+                ],
+                opacity: this.state.frontOpacity
               }
             ]}
           />
+          <Animated.View
+            source={this.props.image}
+            resizeMode="contain"
+            style={[
+              {
+                position: 'absolute',
+                backfaceVisibility: 'hidden',
+                transform: [
+                  { perspective: 1000 },
+                  { rotateY: this.state.rotationBack },
+                  { translateX: this.state.position }
+                ],
+                opacity: this.state.backOpacity
+              }
+            ]}
+          >
+            <Image source={this.props.image} style={styles.image} />
+            <Rule rule={this.props.rule} isHotRound={this.props.isHotRound} />
+          </Animated.View>
         </View>
-        <Rule rule={this.props.rule} isHotRound={this.props.isHotRound} />
-      </View>
-    ) : (
-      <View style={styles.container}>
-        <TouchableWithoutFeedback onPress={this.reveal}>
-          <Image style={styles.image} source={backdropImage} />
-        </TouchableWithoutFeedback>
       </View>
     )
   }
