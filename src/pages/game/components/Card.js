@@ -9,15 +9,12 @@ import {
 } from 'react-native';
 
 import Rule from './Rule';
+import {
+  RULE_INITIAL_HEIGHT,
+  DEFAULT_ANIMATION_CONFIGS
+} from '../constants';
 
 const backdropImage = require('../../../../assets/images/spanishdeck/backdrop.jpg');
-
-const DEFAULT_ANIMATION_CONFIGS = {
-  spring : {
-    friction : 7,
-    tension  : 100
-  }
-};
 
 const getWindowHeight = () => Dimensions.get('window').height;
 const getWindowWidth = () => Dimensions.get('window').width;
@@ -59,26 +56,14 @@ class Card extends Component {
 
   componentWillMount = () => {
     this.panResponder = PanResponder.create({
-      // Ask to be the responder:
       onStartShouldSetPanResponder: (evt, gestureState) => true,
       onStartShouldSetPanResponderCapture: (evt, gestureState) => true,
       onMoveShouldSetPanResponder: (evt, gestureState) => true,
       onMoveShouldSetPanResponderCapture: (evt, gestureState) => true,
-
-      onPanResponderGrant: (evt, gestureState) => {
-        // The gesture has started. Show visual feedback so the user knows
-        // what is happening!
-
-        // gestureState.d{x,y} will be set to zero now
-      },
       onPanResponderStart: () => {
         this.initialRotation = this.state.rotation.__getValue();
       },
       onPanResponderMove: (evt, gestureState) => {
-        // The most recent move distance is gestureState.move{X,Y}
-
-        // The accumulated gesture distance since becoming responder is
-        // gestureState.d{x,y}
         if(this.state.revealed) {
           if(gestureState.dx > 0) {
             this.setCurrentValueAnimated(gestureState.dx);
@@ -86,8 +71,6 @@ class Card extends Component {
         } else {
           this.setCurrentRotation(this.initialRotation + gestureState.dx);
         }
-        // this.state.position.setValue(gestureState.moveX);
-        // this.
       },
       onPanResponderTerminationRequest: (evt, gestureState) => true,
       onPanResponderRelease: () => {
@@ -113,16 +96,7 @@ class Card extends Component {
         // The user has released all touches while this view is the
         // responder. This typically means a gesture has succeeded
       },
-      onPanResponderTerminate: (evt, gestureState) => {
-        // this.setCurrentValueAnimated(this.windowWidth / 2);
-        // Another component has become the responder, so this gesture
-        // should be cancelled
-      },
-      onShouldBlockNativeResponder: (evt, gestureState) => {
-        // Returns whether this component should block native components from becoming the JS
-        // responder. Returns true by default. Is currently only supported on android.
-        return true;
-      },
+      onShouldBlockNativeResponder: (evt, gestureState) => true;
     });
   };
 
@@ -198,9 +172,11 @@ class Card extends Component {
             ]}
           >
             <Image source={this.props.image} style={styles.image} />
-            <Rule rule={this.props.rule} isHotRound={this.props.isHotRound} />
           </Animated.View>
         </View>
+        {this.state.revealed && (
+          <Rule rule={this.props.rule} isHotRound={this.props.isHotRound} />
+        )}
       </View>
     )
   }

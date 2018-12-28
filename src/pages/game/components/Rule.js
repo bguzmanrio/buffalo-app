@@ -7,30 +7,20 @@ import {
   Dimensions
 } from 'react-native';
 
-const DEFAULT_ANIMATION_CONFIGS = {
-  spring : {
-    friction : 7,
-    tension  : 100
-  }
-};
-
-const LINE_HEIGHT = 24;
-const VERTICAL_PADDING = 16; 
-const initialHeight = LINE_HEIGHT + VERTICAL_PADDING * 2;
+import {
+  RULE_INITIAL_HEIGHT,
+  DEFAULT_ANIMATION_CONFIGS
+} from '../constants';
 
 class Rule extends React.Component {
   windowHeight = Dimensions.get('window').height;
-
-  state = {
-    display: false,
-    height: new Animated.Value(initialHeight)
-  };
+  height = new Animated.Value(RULE_INITIAL_HEIGHT)
 
   componentWillMount = () => {
     this.panResponder = PanResponder.create({
       // Ask to be the responder:
       onStartShouldSetPanResponder: (evt, gestureState) => true,
-      onStartShouldSetPanResponderCapture: (evt, gestureState) => false,
+      onStartShouldSetPanResponderCapture: (evt, gestureState) => true,
       onMoveShouldSetPanResponder: (evt, gestureState) => true,
       onMoveShouldSetPanResponderCapture: (evt, gestureState) => true,
 
@@ -41,7 +31,7 @@ class Rule extends React.Component {
         // gestureState.d{x,y} will be set to zero now
       },
       onPanResponderStart: () => {
-        this.initialHeight = Math.max(this.state.height.__getValue(), initialHeight);
+        this.initialHeight = Math.max(this.height.__getValue(), RULE_INITIAL_HEIGHT);
       },
       onPanResponderMove: (evt, gestureState) => {
         // The most recent move distance is gestureState.move{X,Y}
@@ -54,8 +44,8 @@ class Rule extends React.Component {
       },
       onPanResponderTerminationRequest: (evt, gestureState) => true,
       onPanResponderRelease: (evt, gestureState) => {
-        this.setCurrentValueAnimated(initialHeight);
-        // if (this.state.height.__getValue() >= 200) {
+        this.setCurrentValueAnimated(RULE_INITIAL_HEIGHT);
+        // if (this.height.__getValue() >= 200) {
         //   this.props.onSwipeCard();
         // } else {
         // }
@@ -82,7 +72,7 @@ class Rule extends React.Component {
       { toValue }
     );
 
-    Animated.spring(this.state.height, animationConfig).start();
+    Animated.spring(this.height, animationConfig).start();
   };
 
   handleDisplay = () => {
@@ -101,7 +91,7 @@ class Rule extends React.Component {
           styles.ruleContainer,
           hotRoundStyles,
           {
-            height: this.state.height
+            height: this.height
           }
         ]}
       >
@@ -109,9 +99,6 @@ class Rule extends React.Component {
           {ruleToDisplay.short}
         </Text>
         <Text style={styles.longRule}>
-          {ruleToDisplay.long}
-          {ruleToDisplay.long}
-          {ruleToDisplay.long}
           {ruleToDisplay.long}
         </Text>
       </Animated.View>
