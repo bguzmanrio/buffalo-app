@@ -5,6 +5,7 @@ import Button from '../../components/Button';
 import Text from '../../components/Text';
 
 import RulePicker from './components/RulePicker';
+import PlayerPicker from './components/PlayerPicker';
 
 import { getConfigList } from '../../storage';
 
@@ -12,7 +13,7 @@ class SelectConfig extends React.Component {
   state = {
     configList: [],
     config: null,
-    players: '4'
+    players: 4
   };
 
   componentDidMount = async () => {
@@ -51,16 +52,7 @@ class SelectConfig extends React.Component {
             handleSelect={this.handleSelect}
             configList={this.state.configList}
           />
-          <View>
-            <Text>Select nº of players</Text>
-            <TextInput
-              keyboardType="numeric"
-              onChangeText={this.handlePlayersSelection}
-              value={this.state.players}
-              placeholder="Number of players"
-              underlineColorAndroid='transparent'
-            />
-          </View>
+          <PlayerPicker players={this.state.players} onPlayerSelection={this.handlePlayersSelection} />
         </View>
         <View style={styles.buttonContainer}>
           <Button
