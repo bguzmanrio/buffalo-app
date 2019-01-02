@@ -17,7 +17,7 @@ class Start extends React.Component {
     return (
       <View style={styles.container}>
         <StatusBar hidden />
-        <Image source={logo} style={styles.logo}/>
+        <Image source={logo}/>
         <View style={styles.buttonContainer}>
           <BuffaloButton text="Navigate" onPress={this.handleNavigation} />
           <BuffaloButton text="Game" onPress={this.handleGameNavigation} />
@@ -36,8 +36,6 @@ const styles = StyleSheet.create({
   },
   buttonContainer: {
     width: '80%'
-  },
-  logo: {
   }
 });
 
