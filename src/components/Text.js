@@ -5,7 +5,7 @@ const BuffaloText = props => (
   <Text
     {...props}
     style={{
-      color: '#FBFAF8',
+      color: props.color || '#FBFAF8',
       fontSize: 24
     }}
   />
