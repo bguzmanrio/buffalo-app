@@ -59,20 +59,19 @@ class Card extends Component {
       },
       onPanResponderMove: (evt, gestureState) => {
         if(this.state.revealed) {
-          if(gestureState.dx > 0) {
-            this.setCurrentValueAnimated(gestureState.dx);
-          }
+          this.setCurrentValueAnimated(gestureState.dx);
         } else {
           this.setCurrentRotation(this.initialRotation + gestureState.dx);
         }
       },
-      onPanResponderTerminationRequest: (evt, gestureState) => true,
+      onPanResponderTerminationRequest: () => true,
       onPanResponderRelease: () => {
         if (this.state.revealed) {
-          if (this.state.position.__getValue() >= this.windowWidth*0.4) {
+          const position = this.state.position.__getValue();
+
+          this.setCurrentValueAnimated(0);
+          if (Math.abs(position) >= this.windowWidth*0.4) {
             this.swipeCard();
-          } else {
-            this.setCurrentValueAnimated(0);
           }
         } else {
           const rotation = parseInt(this.state.rotationFront.__getValue(), 10);
@@ -86,9 +85,6 @@ class Card extends Component {
             this.setCurrentRotation(0);
           }
         }
-
-        // The user has released all touches while this view is the
-        // responder. This typically means a gesture has succeeded
       },
       onShouldBlockNativeResponder: (evt, gestureState) => true
     });
@@ -102,24 +98,22 @@ class Card extends Component {
     });
   }
 
-  setCurrentRotation = toValue => {
+  setAnimatedValue = (toValue, animatedValue) => {
     const animationConfig = Object.assign(
       {},
       DEFAULT_ANIMATION_CONFIGS.spring,
       { toValue }
     );
 
-    Animated.spring(this.state.rotation, animationConfig).start();
+    Animated.spring(animatedValue, animationConfig).start();
   }
 
-  setCurrentValueAnimated = toValue => {
-    const animationConfig = Object.assign(
-      {},
-      DEFAULT_ANIMATION_CONFIGS.spring,
-      { toValue }
-    );
+  setCurrentRotation = toValue => {
+    this.setAnimatedValue(toValue, this.state.rotation);
+  };
 
-    Animated.spring(this.state.position, animationConfig).start();
+  setCurrentValueAnimated = toValue => {
+    this.setAnimatedValue(toValue, this.state.position)
   };
 
   render() {
