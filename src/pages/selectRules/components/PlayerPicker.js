@@ -45,7 +45,8 @@ const styles = StyleSheet.create({
   container: {
     flexDirection: 'row',
     borderColor: 'black',
-    borderWidth: 4
+    borderWidth: 4,
+    borderRadius: 4
   },
   handler: {
     paddingHorizontal: 20,
@@ -57,11 +58,15 @@ const styles = StyleSheet.create({
   },
   handlerPrev: {
     borderTopLeftRadius: 4,
-    borderBottomLeftRadius: 4
+    borderBottomLeftRadius: 4,
+    borderRightWidth: 2,
+    borderColor: 'black'
   },
   handlerNext: {
     borderTopRightRadius: 4,
-    borderBottomRightRadius: 4
+    borderBottomRightRadius: 4,
+    borderLeftWidth: 2,
+    borderColor: 'black'
   },
   players: {
     paddingHorizontal: 20,
