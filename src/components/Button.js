@@ -1,9 +1,12 @@
 import React from 'react';
-import { TouchableOpacity, View, Text } from 'react-native';
+import { TouchableOpacity, View } from 'react-native';
+
+import Text from './Text';
 
 const BuffaloButton = props => (
   <TouchableOpacity 
     onPress={props.onPress}
+    disabled={props.disabled}
     style={{
       marginBottom: 16,
       borderRadius: 4,
@@ -13,7 +16,7 @@ const BuffaloButton = props => (
   >
     <View
       style={{
-        backgroundColor: '#f47c48',
+        backgroundColor: props.disabled ? '#fbd8c9' : '#f47c48',
         alignItems: 'center',
         paddingVertical: 8,
         paddingHorizontal: 16,
@@ -23,12 +26,7 @@ const BuffaloButton = props => (
         borderTopWidth: 2
       }}
     >
-      <Text
-        style={{
-          color: '#FBFAF8',
-          fontSize: 24
-        }}
-      >
+      <Text>
         {props.text}
       </Text>
     </View>
