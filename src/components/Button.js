@@ -1,15 +1,38 @@
 import React from 'react';
-import { Button, StyleSheet } from 'react-native';
+import { TouchableOpacity, View, Text } from 'react-native';
 
 const BuffaloButton = props => (
-  <Button {...props} style={styles.button} title="title" />
+  <TouchableOpacity 
+    onPress={props.onPress}
+    style={{
+      marginBottom: 16,
+      borderRadius: 4,
+      borderColor: 'black',
+      borderWidth: 4
+    }}
+  >
+    <View
+      style={{
+        backgroundColor: '#f47c48',
+        alignItems: 'center',
+        paddingVertical: 8,
+        paddingHorizontal: 16,
+        borderLeftColor: '#FBFAF8',
+        borderLeftWidth: 2,
+        borderTopColor: '#FBFAF8',
+        borderTopWidth: 2
+      }}
+    >
+      <Text
+        style={{
+          color: '#FBFAF8',
+          fontSize: 24
+        }}
+      >
+        {props.text}
+      </Text>
+    </View>
+  </TouchableOpacity>
 );
 
-const styles = StyleSheet.create({
-  button: {
-    backgroundColor: '#f47c48',
-    color: 'black'
-  }
-});
-
-export default Button;
+export default BuffaloButton;

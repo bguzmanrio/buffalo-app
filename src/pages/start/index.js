@@ -1,6 +1,6 @@
 import React from 'react';
 import { StatusBar, StyleSheet, View, Image } from 'react-native';
-import Button from '../../components/Button';
+import BuffaloButton from '../../components/Button';
 
 const logo = require('../../../assets/logo.png');
 
@@ -19,8 +19,8 @@ class Start extends React.Component {
         <StatusBar hidden />
         <Image source={logo} style={styles.logo}/>
         <View style={styles.buttonContainer}>
-          <Button title="Navigate" onPress={this.handleNavigation} />
-          <Button title="Game" onPress={this.handleGameNavigation} />
+          <BuffaloButton text="Navigate" onPress={this.handleNavigation} />
+          <BuffaloButton text="Game" onPress={this.handleGameNavigation} />
         </View>
       </View>
     );
@@ -31,7 +31,8 @@ const styles = StyleSheet.create({
   container: {
     alignItems: 'center',
     justifyContent: 'space-around',
-    height: '100%'
+    height: '100%',
+    backgroundColor: '#31393C'
   },
   buttonContainer: {
     width: '80%'
