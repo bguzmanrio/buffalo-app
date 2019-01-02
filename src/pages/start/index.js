@@ -1,5 +1,6 @@
 import React from 'react';
-import { StatusBar, StyleSheet, Text, View, Button, Image } from 'react-native';
+import { StatusBar, StyleSheet, View, Image } from 'react-native';
+import Button from '../../components/Button';
 
 const logo = require('../../../assets/logo.png');
 

@@ -39,7 +39,7 @@ export const getItem = name => AsyncStorage.getItem(getStorageKey(name));
 
 export const getConfigList = async () => {
   const list = await getItem(CONFIG_LIST);
-  return list.split(CONFIG_LIST_SEPARATOR);
+  return list.split(CONFIG_LIST_SEPARATOR).filter(Boolean);
 };
 
 export const initialize = async () => {
