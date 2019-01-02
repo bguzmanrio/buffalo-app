@@ -96,7 +96,7 @@ class Card extends Component {
         // The user has released all touches while this view is the
         // responder. This typically means a gesture has succeeded
       },
-      onShouldBlockNativeResponder: (evt, gestureState) => true;
+      onShouldBlockNativeResponder: (evt, gestureState) => true
     });
   };
 
