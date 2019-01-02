@@ -1,5 +1,10 @@
 import React from 'react';
-import { StatusBar, Button, View, Picker, TextInput, Text } from 'react-native';
+import { StatusBar, StyleSheet, View, Picker, TextInput } from 'react-native';
+
+import Button from '../../components/Button';
+import Text from '../../components/Text';
+
+import RulePicker from './components/RulePicker';
 
 import { getConfigList } from '../../storage';
 
@@ -38,37 +43,47 @@ class SelectConfig extends React.Component {
 
   render() {
     return (
-      <View>
+      <View style={styles.container}>
         <StatusBar hidden />
         <View>
-          <Text>Select rule set</Text>
-          <Picker
-            selectedValue={this.state.config}
-            onValueChange={this.handleSelect}
-          >
-            {this.state.configList.map(config => (
-              <Picker.Item key={config} label={config} value={config}/>
-            ))}
-          </Picker>
+          <RulePicker
+            config={this.state.config}
+            handleSelect={this.handleSelect}
+            configList={this.state.configList}
+          />
+          <View>
+            <Text>Select nº of players</Text>
+            <TextInput
+              keyboardType="numeric"
+              onChangeText={this.handlePlayersSelection}
+              value={this.state.players}
+              placeholder="Number of players"
+              underlineColorAndroid='transparent'
+            />
+          </View>
         </View>
-        <View>
-          <Text>Select nº of players</Text>
-          <TextInput
-            keyboardType="numeric"
-            onChangeText={this.handlePlayersSelection}
-            value={this.state.players}
-            placeholder="Number of players"
-            underlineColorAndroid='transparent'
+        <View style={styles.buttonContainer}>
+          <Button
+            text="Start!"
+            onPress={this.handleGameNavigation}
+            disabled={!this.state.config || !this.state.players}
           />
         </View>
-        <Button
-          title="Start!"
-          onPress={this.handleGameNavigation}
-          disabled={!this.state.config || !this.state.players}
-        />
       </View>
     )
   }
 }
+
+const styles = StyleSheet.create({
+  container: {
+    alignItems: 'center',
+    justifyContent: 'space-around',
+    height: '100%',
+    backgroundColor: '#31393C'
+  },
+  buttonContainer: {
+    width: '80%'
+  }
+})
 
 export default SelectConfig;
