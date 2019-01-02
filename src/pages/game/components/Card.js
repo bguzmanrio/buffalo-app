@@ -1,23 +1,17 @@
 import React, { Component } from 'react';
 import {
   View,
-  Image,
   Animated,
   PanResponder,
-  Dimensions,
   StyleSheet
 } from 'react-native';
 
+import { getWindowHeight, getWindowWidth } from '../utils/dimensions';
+import { DEFAULT_ANIMATION_CONFIGS } from '../constants';
+
 import Rule from './Rule';
-import {
-  RULE_INITIAL_HEIGHT,
-  DEFAULT_ANIMATION_CONFIGS
-} from '../constants';
-
-const backdropImage = require('../../../../assets/images/spanishdeck/backdrop.jpg');
-
-const getWindowHeight = () => Dimensions.get('window').height;
-const getWindowWidth = () => Dimensions.get('window').width;
+import CardBackFace from './CardBackFace';
+import CardFace from './CardFace';
 
 const getInitialState = () => {
   const rotationValue = new Animated.Value(0);
@@ -46,7 +40,7 @@ const getInitialState = () => {
 }
 
 class Card extends Component {
-  windowWidth = Dimensions.get('window').width;
+  windowWidth = getWindowWidth();
 
   state = {
     revealed: false,
@@ -100,12 +94,6 @@ class Card extends Component {
     });
   };
 
-  componentWillReceiveProps = nextProps => {
-    if (nextProps.image !== this.props.image) {
-      
-    }
-  };
-
   swipeCard = () => {
     this.setState({ revealed: false }, () => {
       this.setCurrentRotation(0);
@@ -142,37 +130,13 @@ class Card extends Component {
         }]}
       >
         <View style={styles.imageContainer} {...this.panResponder.panHandlers}>
-          <Animated.Image
-            source={backdropImage}
-            style={[
-              {
-                backfaceVisibility: 'hidden',
-                transform: [
-                  { perspective: 1000 },
-                  { rotateY: this.state.rotationFront }
-                ],
-                opacity: this.state.frontOpacity
-              }
-            ]}
+          <CardBackFace rotation={this.state.rotationFront} opacity={this.state.frontOpacity} />
+          <CardFace
+            rotation={this.state.rotationBack}
+            position={this.state.position}
+            opacity={this.state.backOpacity}
+            image={this.props.image}
           />
-          <Animated.View
-            source={this.props.image}
-            resizeMode="contain"
-            style={[
-              {
-                position: 'absolute',
-                backfaceVisibility: 'hidden',
-                transform: [
-                  { perspective: 1000 },
-                  { rotateY: this.state.rotationBack },
-                  { translateX: this.state.position }
-                ],
-                opacity: this.state.backOpacity
-              }
-            ]}
-          >
-            <Image source={this.props.image} style={styles.image} />
-          </Animated.View>
         </View>
         {this.state.revealed && (
           <Rule rule={this.props.rule} isHotRound={this.props.isHotRound} />
@@ -187,9 +151,6 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'space-between',
     flexDirection: 'column'
-  },
-  image: {
-    maxHeight: '100%'
   },
   imageContainer: {
     height: '80%'
