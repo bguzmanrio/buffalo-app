@@ -21,8 +21,8 @@ const BuffaloText = props => (
   <Text
     {...props}
     style={{
+      fontFamily: 'bree-serif',
       color: props.color || WHITE,
-      fontWeight: props.fontWeight || 'regular',
       ...FONT_CORRELATION[props.fontSize]
     }}
   />
