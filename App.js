@@ -1,4 +1,5 @@
 import React from 'react';
+import { Font } from 'expo';
 import { StyleSheet, Text, View, AsyncStorage } from 'react-native';
 
 import { Navigator } from './src/Router';
@@ -8,11 +9,14 @@ console.disableYellowBox = true;
 
 export default class App extends React.Component {
   state = {
-    isLoaded: true
+    isLoaded: false
   };
 
   componentDidMount = async () => {
     try {
+      await Font.loadAsync({
+        'bree-serif': require('./assets/fonts/BreeSerif.ttf'),
+      }),
       await initializeStorage();
       this.setState({
         isLoaded: true
@@ -25,9 +29,7 @@ export default class App extends React.Component {
   render() {
     return this.state.isLoaded ? (
       <Navigator />
-    ) : (
-      <Text>Loading...</Text>
-    )
+    ) : null
   }
 }
 
