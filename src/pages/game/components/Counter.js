@@ -1,11 +1,18 @@
 import React from 'react';
 import { StyleSheet, View } from 'react-native';
 
-import { SECONDARY_COLOR } from '../../../style';
+import { PRIMARY_COLOR, SECONDARY_COLOR } from '../../../style';
 import Text from '../../../components/Text';
 
 const Counter = props => (
-  <View style={styles.counter}>
+  <View
+    style={[
+      styles.counter,
+      {
+        backgroundColor: props.isHotRound ? PRIMARY_COLOR : SECONDARY_COLOR
+      }
+    ]}
+  >
     <Text>
       {props.currentCard + 1}/{props.nCards}
     </Text>

@@ -7,6 +7,7 @@ import {
 } from 'react-native';
 
 import Text from '../../../components/Text';
+import { PRIMARY_COLOR_RGB } from '../../../style'; 
 
 import { getWindowHeight } from '../utils/dimensions';
 import {
@@ -14,12 +15,18 @@ import {
   DEFAULT_ANIMATION_CONFIGS
 } from '../constants';
 
+const getBackgroundColorRange = isHotRound => {
+  const colorToUse = isHotRound ? PRIMARY_COLOR_RGB : '255, 255, 255';
+
+  return [`rgba(${colorToUse}, 0.5)`, `rgba(${colorToUse}, 1)`];
+};
+
 class Rule extends React.Component {
   windowHeight = getWindowHeight();
   height = new Animated.Value(RULE_INITIAL_HEIGHT);
   bgOpacity = this.height.interpolate({
     inputRange: [0, this.windowHeight/3],
-    outputRange: ['rgba(255, 255, 255, 0.5)', 'rgba(255, 255, 255, 1)']
+    outputRange: getBackgroundColorRange(this.props.isHotRound)
   });
 
   componentWillMount = () => {

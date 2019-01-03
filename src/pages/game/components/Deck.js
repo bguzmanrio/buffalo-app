@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { View, Button, Text, StyleSheet } from 'react-native';
+import { View, Button } from 'react-native';
 
 import { getShuffledDeck } from '../../../components/Decks/SpanishDeck';
 
@@ -73,7 +73,7 @@ class Deck extends Component {
     ) : (
       <View>
         {this.renderCard()}
-        <Counter currentCard={this.state.currentIndex} nCards={this.deck.length}/>
+        <Counter currentCard={this.state.currentIndex} nCards={this.deck.length} isHotRound={this.isHotRound()} />
       </View>
     );
   }
