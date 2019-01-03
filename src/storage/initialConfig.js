@@ -4,101 +4,101 @@ export const config = {
     1: {
       base: {
         short: 'Bebe 1 trago',
-        long: 'this is the long rule. It should display more information'
+        long: 'Bebe 1 trago de tu bebida, no seas mangurrián.'
       },
       hotRound: {
         short: 'Bebe 2 tragos',
-        long: 'this is the long rule. It should display more information'
+        long: 'Bebe 2 tragos de tu bebida, no seas mangurrián.'
       }
     },
     2: {
       base: {
         short: 'Bebe 2 tragos',
-        long: 'this is the long rule. It should display more information'
+        long: 'Bebe 2 tragos, pero no vale mojarse los labios.'
       },
       hotRound: {
         short: 'Bebe 4 tragos',
-        long: 'this is the long rule. It should display more information'
+        long: 'Bebe 4 tragos, pero no vale mojarse los labios.'
       }
     },
     3: {
       base: {
-        short: 'Rimas',
-        long: 'this is the long rule. It should display more information'
+        short: 'Rimas encadenadas',
+        long: 'Di una palabra y todos dirán por orden una que rime con la tuya. Quién repita palabra o falle, bebe 1 trago.'
       },
       hotRound: {
-        short: 'Rimas con doble penalización',
-        long: 'this is the long rule. It should display more information'
+        short: 'Rimas encadenadas',
+        long: 'Di una palabra y todos dirán por orden una que rime con la tuya. Quién repita palabra o falle, bebe 2 tragos.'
       }
     },
     4: {
       base: {
         short: 'Bebe 4 tragos',
-        long: 'this is the long rule. It should display more information'
+        long: '¡A tope!'
       },
       hotRound: {
         short: 'Bebe 8 tragos',
-        long: 'this is the long rule. It should display more information'
+        long: 'Estás jodido o jodida.'
       }
     },
     5: {
       base: {
         short: 'Reparte 5 tragos',
-        long: 'this is the long rule. It should display more information'
+        long: 'Elige a quién repartir 5 tragos. Máximo de 4 por persona. Beben de su bebida, no de la tuya, que es muy cara.'
       },
       hotRound: {
         short: 'Reparte 10 tragos',
-        long: 'this is the long rule. It should display more information'
+        long: 'Elige a quién repartir 10 tragos. Máximo de 8 por persona. Beben de su bebida, no de la tuya, que es muy cara.'
       }
     },
     6: {
       base: {
         short: 'Categorías',
-        long: 'this is the long rule. It should display more information'
+        long: 'Nombra una categoría, y todos dirán cosas que pertenezcan a esa categoría. Quien falle, bebe 1 trago.'
       },
       hotRound: {
-        short: '',
-        long: 'this is the long rule. It should display more information'
+        short: 'Categorías',
+        long: 'Nombra una categoría, y todos dirán cosas que pertenezcan a esa categoría. Quien falle, bebe 2 tragos.'
       }
     },
     7: {
       base: {
         short: 'Yo nunca',
-        long: 'this is the long rule. It should display more information'
+        long: 'El típico juego de "Yo nunca".'
       },
       hotRound: {
-        short: '',
-        long: 'this is the long rule. It should display more information'
+        short: 'Yo nunca, yo nunca',
+        long: 'El típico juego de "Yo nunca", pero bebiendo 2 veces si lo has hecho.'
       }
     },
     8: {
       base: {
         short: 'Da 3 vueltas y bebe 1 trago',
-        long: 'this is the long rule. It should display more information'
+        long: 'Ponte en pie, gira sobre ti mismo 3 veces y bebe 1 trago. Cuidado con la pota.'
       },
       hotRound: {
         short: 'Da 3 vueltas y bebe 2 tragos',
-        long: 'this is the long rule. It should display more information'
+        long: 'Ponte en pie, gira sobre ti mismo 3 veces y bebe 2 tragos. Cuidado con la pota.'
       }
     },
     9: {
       base: {
-        short: 'BUFALO!!',
-        long: 'this is the long rule. It should display more information'
+        short: '¡¡BUFFALO!!',
+        long: 'La razón de ser de este juego. Todos golpean la mesa y vocean BUFFALO. Todo el mundo bebe 1 trago y cambian la mano de beber.'
       },
       hotRound: {
-        short: 'BUFALO!!',
-        long: 'this is the long rule. It should display more information'
+        short: 'BUFFALO!!',
+        long: 'La razón de ser de este juego. Todos golpean la mesa y vocean BUFFALO. Todo el mundo bebe 2 tragos y cambian la mano de beber.'
       }
     },
     10: {
       base: {
         short: 'Todos beben 2 tragos',
-        long: 'this is the long rule. It should display more information'
+        long: 'El rey manda'
       },
       hotRound: {
         short: 'Todos beben 4 tragos',
-        long: 'this is the long rule. It should display more information'
+        long: 'El rey manda el doble esta vez'
       }
     }
   }
