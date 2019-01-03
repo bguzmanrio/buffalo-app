@@ -1,6 +1,8 @@
 import React from 'react';
 import { TouchableOpacity, View } from 'react-native';
 
+import { PRIMARY_COLOR, PRIMARY_COLOR_DISABLED, WHITE } from '../style';
+
 import Text from './Text';
 
 const BuffaloButton = props => (
@@ -16,13 +18,13 @@ const BuffaloButton = props => (
   >
     <View
       style={{
-        backgroundColor: props.disabled ? '#fbd8c9' : '#f47c48',
+        backgroundColor: props.disabled ? PRIMARY_COLOR_DISABLED : PRIMARY_COLOR,
         alignItems: 'center',
         paddingVertical: 8,
         paddingHorizontal: 16,
-        borderLeftColor: '#FBFAF8',
+        borderLeftColor: WHITE,
         borderLeftWidth: 2,
-        borderTopColor: '#FBFAF8',
+        borderTopColor: WHITE,
         borderTopWidth: 2
       }}
     >

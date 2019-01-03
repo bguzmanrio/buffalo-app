@@ -113,7 +113,7 @@ class Card extends Component {
   };
 
   setCurrentValueAnimated = toValue => {
-    this.setAnimatedValue(toValue, this.state.position)
+    this.setAnimatedValue(toValue, this.state.position);
   };
 
   render() {

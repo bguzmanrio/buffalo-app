@@ -2,8 +2,10 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { View, Button, Text, StyleSheet } from 'react-native';
 
-import Card from './Card';
 import { getShuffledDeck } from '../../../components/Decks/SpanishDeck';
+
+import Card from './Card';
+import Counter from './Counter';
 
 class Deck extends Component {
   static propTypes = {
@@ -47,12 +49,6 @@ class Deck extends Component {
   isHotRound = () =>
     (this.state.currentIndex + parseInt(this.props.players)) >= this.deck.length;
 
-  renderCounter = () => (
-    <Text style={styles.counter}>
-      {this.state.currentIndex + 1}/{this.deck.length}
-    </Text>
-  );
-
   renderCard = () => {
     const currentCard = this.deck[this.state.currentIndex];    
     const ruleForCurrentCard = this.props.rules.cards[currentCard.number];
@@ -77,18 +73,10 @@ class Deck extends Component {
     ) : (
       <View>
         {this.renderCard()}
-        {this.renderCounter()}
+        <Counter currentCard={this.state.currentIndex} nCards={this.deck.length}/>
       </View>
     );
   }
 }
-
-const styles = StyleSheet.create({
-  counter: {
-    position: 'absolute',
-    top: 0,
-    left: 0
-  }
-});
 
 export default Deck;

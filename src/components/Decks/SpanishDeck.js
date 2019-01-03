@@ -1,5 +1,3 @@
-import { ArrayObservable } from 'rxjs/observable/ArrayObservable';
-
 const images = [
   {
     image: require('../../../assets/images/spanishdeck/espadas/1.jpg'),

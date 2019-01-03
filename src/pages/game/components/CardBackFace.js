@@ -1,6 +1,8 @@
 import React from 'react';
 import { Animated, Image, StyleSheet } from 'react-native';
 
+import { SECONDARY_COLOR } from '../../../style';
+
 import { getWindowHeight, getWindowWidth } from '../utils/dimensions';
 
 const logo = require('../../../../assets/logo.png');
@@ -33,7 +35,7 @@ const CardBackFace = props => (
 const styles = StyleSheet.create({
   backface: {
     flexGrow: 1,
-    backgroundColor: 'black',
+    backgroundColor: SECONDARY_COLOR,
     width: getWindowWidth(),
     height: getWindowHeight(),
     backfaceVisibility: 'hidden',
