@@ -30,8 +30,7 @@ class Deck extends Component {
   deck = getShuffledDeck();
   
   state = {
-    currentIndex: 0,
-    end: false
+    currentIndex: 0
   };
 
   handleSwipe = () => {    
@@ -40,40 +39,29 @@ class Deck extends Component {
         currentIndex: prevState.currentIndex + 1
       }));
     } else {
-      this.setState({
-        end: true
-      });
+      this.props.navigateBack();
     }
   };
 
   isHotRound = () =>
     (this.state.currentIndex + parseInt(this.props.players)) >= this.deck.length;
 
-  renderCard = () => {
+  render() {
     const currentCard = this.deck[this.state.currentIndex];    
     const ruleForCurrentCard = this.props.rules.cards[currentCard.number];
+    const isHotRound = this.isHotRound();
 
     return (
       <View>
-        <Card
-          isHotRound={this.isHotRound()}
-          image={currentCard.image}
-          rule={ruleForCurrentCard}
-          onSwipeCard={this.handleSwipe}
-        />
-      </View>
-    );
-  }
-
-  render() {
-    return this.state.end ? (
-      <View>
-        <Button onPress={this.props.navigateBack} title="The end! Press to go back"/>
-      </View>
-    ) : (
-      <View>
-        {this.renderCard()}
-        <Counter currentCard={this.state.currentIndex} nCards={this.deck.length} isHotRound={this.isHotRound()} />
+        <View>
+          <Card
+            isHotRound={isHotRound}
+            image={currentCard.image}
+            rule={ruleForCurrentCard}
+            onSwipeCard={this.handleSwipe}
+          />
+        </View>
+        <Counter currentCard={this.state.currentIndex} nCards={this.deck.length} isHotRound={isHotRound} />
       </View>
     );
   }
