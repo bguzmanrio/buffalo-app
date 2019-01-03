@@ -7,7 +7,7 @@ import {
 } from 'react-native';
 
 import Text from '../../../components/Text';
-import { PRIMARY_COLOR_RGB } from '../../../style'; 
+import { PRIMARY_COLOR, PRIMARY_COLOR_RGB } from '../../../style'; 
 
 import { getWindowHeight } from '../utils/dimensions';
 import {
@@ -148,7 +148,7 @@ const styles = StyleSheet.create({
   dragger: {
     width: '20%',
     borderWidth: 2,
-    borderColor: 'black',
+    borderColor: PRIMARY_COLOR,
     marginTop: 2
   }
 });

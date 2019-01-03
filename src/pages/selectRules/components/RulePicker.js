@@ -6,7 +6,7 @@ import Text from '../../../components/Text';
 
 const RulePicker = props => (
   <View style={{ marginBottom: 16, alignItems: 'center' }}>
-    <Text>Select rule set</Text>
+    <Text align="center">Selecciona las reglas</Text>
     <View
       style={{
         backgroundColor: PRIMARY_COLOR,

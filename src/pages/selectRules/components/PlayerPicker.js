@@ -17,7 +17,7 @@ class PlayerPicker extends Component {
 
     return (
       <View>
-        <Text>Select nº of players</Text>
+        <Text align="center">¿Cuántos sois?</Text>
         <View style={styles.container}>
           <TouchableOpacity
             style={[styles.handler, styles.handlerPrev, disabledRemovePlayer && styles.handlerDisabled]}

@@ -23,6 +23,7 @@ const BuffaloText = props => (
     style={{
       fontFamily: 'bree-serif',
       color: props.color || WHITE,
+      textAlign: props.align || 'left',
       ...FONT_CORRELATION[props.fontSize]
     }}
   />

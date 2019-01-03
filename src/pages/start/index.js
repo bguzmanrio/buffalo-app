@@ -4,6 +4,7 @@ import { StatusBar, StyleSheet, View, Image } from 'react-native';
 import { SECONDARY_COLOR } from '../../style';
 
 import Button from '../../components/Button';
+import Text from '../../components/Text';
 
 const logo = require('../../../assets/logo.png');
 
@@ -20,10 +21,12 @@ class Start extends React.Component {
     return (
       <View style={styles.container}>
         <StatusBar hidden />
-        <Image source={logo}/>
+        <View style={styles.logoContainer}>
+          <Image source={logo}/>
+          <Text align="center">El juego de cartas para borrachos</Text>
+        </View>
         <View style={styles.buttonContainer}>
-          <Button text="Navigate" onPress={this.handleNavigation} />
-          <Button text="Game" onPress={this.handleGameNavigation} />
+          <Button text="Al lío" onPress={this.handleGameNavigation} />
         </View>
       </View>
     );
@@ -36,6 +39,11 @@ const styles = StyleSheet.create({
     justifyContent: 'space-around',
     height: '100%',
     backgroundColor: SECONDARY_COLOR
+  },
+  logoContainer: {
+    alignItems: 'center',
+    textAlign: 'center',
+    paddingHorizontal: 8
   },
   buttonContainer: {
     width: '80%'

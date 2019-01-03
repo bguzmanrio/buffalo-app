@@ -56,7 +56,7 @@ class SelectConfig extends React.Component {
         </View>
         <View style={styles.buttonContainer}>
           <Button
-            text="Start!"
+            text="¡Todo listo!"
             onPress={this.handleGameNavigation}
             disabled={!this.state.config || !this.state.players}
           />
