@@ -84,11 +84,11 @@ export const config = {
     9: {
       base: {
         short: '¡¡BUFFALO!!',
-        long: 'La razón de ser de este juego. Todos golpean la mesa y vocean BUFFALO. Todo el mundo bebe 1 trago y cambian la mano de beber.'
+        long: 'La razón de ser de este juego. Todos golpean la mesa y vocean BUFFALO. Todo el mundo cambia de mano de beber y se echan 1 trago'
       },
       hotRound: {
         short: 'BUFFALO!!',
-        long: 'La razón de ser de este juego. Todos golpean la mesa y vocean BUFFALO. Todo el mundo bebe 2 tragos y cambian la mano de beber.'
+        long: 'La razón de ser de este juego. Todos golpean la mesa y vocean BUFFALO. Todo el mundo cambia de mano de beber y se echan 2 tragos'
       }
     },
     10: {

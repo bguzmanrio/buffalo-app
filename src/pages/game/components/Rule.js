@@ -111,12 +111,12 @@ class Rule extends React.Component {
       > 
         <View style={styles.dragger}/>
         <View style={styles.rule}>
-          <Text fontSize="s" color="black">
+          <Text color="black">
             {ruleToDisplay.short}
           </Text>
         </View>
         <View style={styles.longRule}>
-          <Text fontSize="xs" color="black">
+          <Text fontSize="s" color="black">
             {ruleToDisplay.long}
           </Text>
         </View>
