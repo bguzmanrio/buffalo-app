@@ -1,20 +1,26 @@
 import React from 'react';
 import {
-  Text,
   StyleSheet,
   Animated,
   PanResponder,
-  Dimensions
+  View
 } from 'react-native';
 
+import Text from '../../../components/Text';
+
+import { getWindowHeight } from '../utils/dimensions';
 import {
   RULE_INITIAL_HEIGHT,
   DEFAULT_ANIMATION_CONFIGS
 } from '../constants';
 
 class Rule extends React.Component {
-  windowHeight = Dimensions.get('window').height;
-  height = new Animated.Value(RULE_INITIAL_HEIGHT)
+  windowHeight = getWindowHeight();
+  height = new Animated.Value(RULE_INITIAL_HEIGHT);
+  bgOpacity = this.height.interpolate({
+    inputRange: [0, this.windowHeight/3],
+    outputRange: ['rgba(255, 255, 255, 0.5)', 'rgba(255, 255, 255, 1)']
+  });
 
   componentWillMount = () => {
     this.panResponder = PanResponder.create({
@@ -91,16 +97,22 @@ class Rule extends React.Component {
           styles.ruleContainer,
           hotRoundStyles,
           {
-            height: this.height
+            height: this.height,
+            backgroundColor: this.bgOpacity
           }
         ]}
-      >
-        <Text style={styles.rule}>
-          {ruleToDisplay.short}
-        </Text>
-        <Text style={styles.longRule}>
-          {ruleToDisplay.long}
-        </Text>
+      > 
+        <View style={styles.dragger}/>
+        <View style={styles.rule}>
+          <Text fontSize="s" color="black" fontWeight="bold">
+            {ruleToDisplay.short}
+          </Text>
+        </View>
+        <View style={styles.longRule}>
+          <Text fontSize="xs" color="black" fontWeight="bold">
+            {ruleToDisplay.long}
+          </Text>
+        </View>
       </Animated.View>
     );
   }
@@ -108,38 +120,29 @@ class Rule extends React.Component {
 
 const styles = StyleSheet.create({
   ruleContainer: {
-    backgroundColor: 'red',
+    alignItems: 'center',
     flex: 1,
     width: '100%',
     position: 'absolute',
     bottom: 0,
-    overflow: 'scroll'
+    borderColor: 'black',
+    borderTopWidth: 4,
+    paddingHorizontal: 8,
   },
   ruleHotRound: {
     backgroundColor: 'green',
   },
   rule: {
-    textAlign: 'center',
-    fontSize: 20,
-    lineHeight: 24,
-    fontWeight: 'bold',
-    paddingHorizontal: 8,
-    paddingVertical: 16
-  },
-  ruleToggle: {
-    textAlign: 'center',
-    fontSize: 16,
-    lineHeight: 24,
-    fontWeight: 'bold',
-    paddingHorizontal: 8,
-    paddingVertical: 16
+    paddingVertical: 8
   },
   longRule: {
-    textAlign: 'center',
-    fontSize: 16,
-    lineHeight: 20,
-    fontWeight: 'bold',
-    overflow: 'scroll'
+    alignItems: 'center'
+  },
+  dragger: {
+    width: '20%',
+    borderWidth: 2,
+    borderColor: 'black',
+    marginTop: 2
   }
 });
 
