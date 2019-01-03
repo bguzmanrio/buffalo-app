@@ -9,8 +9,8 @@ import Text from '../../components/Text';
 const logo = require('../../../assets/logo.png');
 
 class Start extends React.Component {
-  handleNavigation = () => {
-    this.props.navigation.push('Configuration');
+  handleHowItWorks = () => {
+    this.props.navigation.push('HowItWorks');
   };
 
   handleGameNavigation = () => {
@@ -26,6 +26,7 @@ class Start extends React.Component {
           <Text align="center">El juego de cartas para borrachos</Text>
         </View>
         <View style={styles.buttonContainer}>
+          <Button text="¿Cómo funciona?" onPress={this.handleHowItWorks} />
           <Button text="Al lío" onPress={this.handleGameNavigation} />
         </View>
       </View>
