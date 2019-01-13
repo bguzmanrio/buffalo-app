@@ -21,7 +21,6 @@ const Counter = props => (
 
 const styles = StyleSheet.create({
   counter: {
-    backgroundColor: SECONDARY_COLOR,
     borderBottomLeftRadius: 4,
     padding: 4,
     position: 'absolute',

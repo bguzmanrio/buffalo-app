@@ -53,14 +53,12 @@ class Deck extends Component {
 
     return (
       <View>
-        <View>
-          <Card
-            isHotRound={isHotRound}
-            image={currentCard.image}
-            rule={ruleForCurrentCard}
-            onSwipeCard={this.handleSwipe}
-          />
-        </View>
+        <Card
+          isHotRound={isHotRound}
+          image={currentCard.image}
+          rule={ruleForCurrentCard}
+          onSwipeCard={this.handleSwipe}
+        />
         <Counter currentCard={this.state.currentIndex} nCards={this.deck.length} isHotRound={isHotRound} />
       </View>
     );

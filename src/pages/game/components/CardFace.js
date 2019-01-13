@@ -6,6 +6,7 @@ const CardFace = props => (
     resizeMode="contain"
     style={[
       {
+        alignSelf: 'center',
         position: 'absolute',
         backfaceVisibility: 'hidden',
         transform: [
