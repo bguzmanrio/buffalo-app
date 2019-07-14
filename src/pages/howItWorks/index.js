@@ -32,6 +32,7 @@ const HowItWorks = props => (
 const styles = StyleSheet.create({
   container: {
     alignItems: 'center',
+    flexGrow: 1,
     justifyContent: 'space-around',
     backgroundColor: SECONDARY_COLOR
   },

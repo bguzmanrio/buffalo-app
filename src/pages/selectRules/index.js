@@ -47,11 +47,13 @@ class SelectConfig extends React.Component {
       <View style={styles.container}>
         <StatusBar hidden />
         <View>
-          <RulePicker
-            config={this.state.config}
-            handleSelect={this.handleSelect}
-            configList={this.state.configList}
-          />
+          {/*
+            <RulePicker
+              config={this.state.config}
+              handleSelect={this.handleSelect}
+              configList={this.state.configList}
+            />
+          */}
           <PlayerPicker players={this.state.players} onPlayerSelection={this.handlePlayersSelection} />
         </View>
         <View style={styles.buttonContainer}>

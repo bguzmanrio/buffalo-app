@@ -1,12 +1,11 @@
-import React from 'react';
-import { StackNavigator } from 'react-navigation';
+import { createAppContainer, createStackNavigator } from 'react-navigation';
 
 import Start from './pages/start';
 import HowItWorks from './pages/howItWorks';
 import Game from './pages/game';
 import SelectConfig from './pages/selectRules';
 
-export const Navigator = StackNavigator({
+const Navigator = createStackNavigator({
   Start: { screen: Start, headerMode: 'screen' },
   HowItWorks: { screen: HowItWorks, headerMode: 'screen' },
   SelectConfig: { screen: SelectConfig },
@@ -14,3 +13,6 @@ export const Navigator = StackNavigator({
 }, {
   headerMode: 'none' 
 });
+
+export const AppContainer = createAppContainer(Navigator);
+

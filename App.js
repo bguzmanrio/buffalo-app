@@ -1,8 +1,8 @@
 import React from 'react';
-import { Font } from 'expo';
+import * as Font from 'expo-font';
 import { StyleSheet, Text, View, AsyncStorage } from 'react-native';
 
-import { Navigator } from './src/Router';
+import { AppContainer } from './src/Router';
 import { initialize as initializeStorage } from './src/storage';
 
 console.disableYellowBox = true;
@@ -28,7 +28,7 @@ export default class App extends React.Component {
 
   render() {
     return this.state.isLoaded ? (
-      <Navigator />
+      <AppContainer urlPrefix="/" />
     ) : null
   }
 }
