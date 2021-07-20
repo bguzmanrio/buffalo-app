@@ -24,7 +24,7 @@
     "expo": "^33.0.7",
     "react": "16.8.6",
     "react-devtools": "^3.6.1",
-    "react-native": "0.59.8",
+    "react-native": "0.62.3",
     "react-navigation": "^3.11.1"
   }
 }
